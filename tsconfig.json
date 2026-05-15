@@ -1,0 +1,74 @@
+// {
+//   // 请访问 https://aka.ms/tsconfig，了解有关此文件的详细信息
+//   "compilerOptions": {
+//     // 文件布局
+//     // "rootDir": "./src",
+//     // "outDir": "./dist",
+
+//     // 环境设置
+//     // 另请参阅 https://aka.ms/tsconfig/module
+//     "module": "nodenext",
+//     "target": "esnext",
+//     "types": [],
+//     // 对于 nodejs:
+//     // "lib": ["esnext"],
+//     // "types": ["node"],
+//     // 和 npm 安装 -D @types/节点
+
+//     // 其他输出
+//     "sourceMap": true,
+//     "declaration": true,
+//     "declarationMap": true,
+
+//     // 更严格的类型检查选项
+//     "noUncheckedIndexedAccess": true,
+//     "exactOptionalPropertyTypes": true,
+
+//     // 样式选项
+//     // "noImplicitReturns": true,
+//     // "noImplicitOverride": true,
+//     // "noUnusedLocals": true,
+//     // "noUnusedParameters": true,
+//     // "noFallthroughCasesInSwitch": true,
+//     // "noPropertyAccessFromIndexSignature": true,
+
+//     // 建议的选项
+//     "strict": true,
+//     "jsx": "react-jsx",
+//     "verbatimModuleSyntax": true,
+//     "isolatedModules": true,
+//     "noUncheckedSideEffectImports": true,
+//     "moduleDetection": "force",
+//     "skipLibCheck": true
+//   }
+// }
+
+{
+	"compilerOptions": {
+		// Checking
+		"strict": true,
+		"noImplicitAny": true,
+		"strictNullChecks": true,
+		"strictFunctionTypes": true,
+		"strictPropertyInitialization": true,
+		"noImplicitThis": true,
+		"alwaysStrict": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"noImplicitReturns": true,
+		"noFallthroughCasesInSwitch": true,
+		"allowJs": false,
+		"allowSyntheticDefaultImports": true,
+		"forceConsistentCasingInFileNames": true,
+		"skipLibCheck": true,
+		// Features
+		"esModuleInterop": true,
+		"resolveJsonModule": true,
+		"experimentalDecorators": true,
+		// Output
+		"sourceMap": true,
+		"removeComments": false,
+		"newLine": "lf",
+		"declaration": true,
+	}
+}
