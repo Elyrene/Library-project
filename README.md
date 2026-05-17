@@ -46,3 +46,16 @@ npm run serve
 ```
 
 ## 启动前端
+
+构建指令
+
+```bash
+cd web
+npm run build
+```
+
+运行、测试指令
+```bash
+npm run dev
+```
+
