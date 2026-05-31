@@ -1,9 +1,11 @@
 import { defineConfig } from "vite";
+import pugVite from "vite-plugin-pug";
 
 const HOST = "127.0.0.1";
 const PORT = 5600;
 
 export default defineConfig({
+	plugins: [pugVite()],
 	// server:{
 	//   proxy:{
 	//     "^/api/.*":"http://localhost:3000",
