@@ -3,6 +3,8 @@
 	"compilerOptions": {
 		"target": "ESNext",
 		"module": "ESNext",
-		"moduleResolution": "bundler"
+		"moduleResolution": "bundler",
+		"experimentalDecorators": true, // If using decorators
+		"useDefineForClassFields": false
 	}
 }

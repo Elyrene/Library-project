@@ -15,11 +15,11 @@ export default defineConfig({
 		port: PORT,
 		strictPort: true,
 		host: HOST,
-		// hmr: {
-		// 	protocol: 'ws',
-		// 	// host: HOST,
-		// 	port: PORT + 1,
-		// },
+		hmr: {
+			protocol: "ws",
+			// host: HOST,
+			port: PORT + 1,
+		},
 	},
 	build: {
 		// 打包输出到 dist 目录，server.js 会将此目录作为静态根目录

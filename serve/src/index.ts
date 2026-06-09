@@ -4,45 +4,24 @@ import {
 	type ServerResponse,
 } from "node:http";
 
-// 测试 TS 类型推断
+import { handleGetData, handlePostData, logInPost } from "./api";
 
+// const jwt = require("jsonwebtoken");
+
+// const users = {
+// 	admin: {
+// 		passworld: "123456",
+// 	},
+// };
+
+// const SECRET_KEY = "11112222";
+
+// 测试 TS 类型推断
 const CONFIG = {
 	PORT: 3000,
 	HOST: "127.0.0.1",
 	indexFile: "index.html",
 };
-
-function handleGetData(req: IncomingMessage, res: ServerResponse) {
-	const urlObj = new URL(`http://${process.env.HOST ?? "localhost"}${req.url}`);
-	const name = urlObj.searchParams.get("name") || "world";
-
-	res.writeHead(200, { "Content-type": "application/json" });
-	res.end(JSON.stringify({ message: `Hello${name}`, method: "GET" }));
-}
-
-function handlePostData(req: IncomingMessage, res: ServerResponse) {
-	let buffer = Buffer.alloc(0);
-	req.on("data", (chunk) => {
-		buffer = Buffer.concat([buffer, chunk]);
-	});
-	req.on("end", () => {
-		try {
-			const body = buffer.toString();
-			const data = JSON.parse(body);
-			res.writeHead(200, { "content-type": "application/json" });
-			res.end(
-				JSON.stringify({
-					message: "data recived",
-					recived: data,
-					method: "POST",
-				}),
-			);
-		} catch (e) {
-			res.writeHead(400, { "content-type": "application/json" });
-			res.end(JSON.stringify({ error: `Invalid JSON :${e}` }));
-		}
-	});
-}
 
 const server = createServer((req: IncomingMessage, res: ServerResponse) => {
 	const urlObj = new URL(`http://${process.env.HOST ?? "localhost"}${req.url}`);
@@ -60,6 +39,8 @@ const server = createServer((req: IncomingMessage, res: ServerResponse) => {
 		handleGetData(req, res);
 	} else if (urlPath === "/api/data" && method === "POST") {
 		handlePostData(req, res);
+	} else if (urlPath === "/api/token" && method === "POST") {
+		logInPost(req, res);
 	} else {
 		res.writeHead(400, { "Content-Type": "application/json" });
 		res.end(

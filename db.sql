@@ -1,0 +1,8 @@
+CREATE DATABASE IF NOT EXISTS library_db;
+USE library_db;
+
+CREATE TABLE IF NOT EXISTS account(
+	account_id INT PRIMARY KEY AUTO_INCREMENT COMMENT '用户 ID',
+	username VARCHAR(255) NOT NULL UNIQUE COMMENT '用户名',
+	password_hash VARCHAR(255) NOT NULL COMMENT '密码哈希',
+);
