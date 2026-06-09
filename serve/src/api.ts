@@ -1,4 +1,5 @@
 import type { IncomingMessage, ServerResponse } from "node:http";
+import { addAccount } from "./db";
 
 // function generateToken(username: string) {
 // 	return jwt.sign({ username }, SECRET_KEY, { expiresIn: "1h" });
@@ -67,5 +68,42 @@ export function handlePostData(req: IncomingMessage, res: ServerResponse) {
 			res.writeHead(400, { "content-type": "application/json" });
 			res.end(JSON.stringify({ error: `Invalid JSON :${e}` }));
 		}
+	});
+}
+
+export function addUser(req: IncomingMessage, res: ServerResponse) {
+	let buffer = Buffer.alloc(0);
+	req.on("data", (chunk) => {
+		buffer = Buffer.concat([buffer, chunk]);
+	});
+	req.on("end", () => {
+		try {
+			const body = buffer.toString();
+			const data = JSON.parse(body);
+			const { username, passworld } = data;
+			addAccount(username, passworld);
+			res.writeHead(200, { "content-type": "application/json" });
+			res.end(
+				JSON.stringify({
+					message: "Add succesfully",
+				}),
+			);
+		} catch (e) {
+			res.writeHead(400, { "content-type": "application/json" });
+			res.end(JSON.stringify({ error: `Invalid JSON :${e}` }));
+		}
+	});
+}
+
+function parseBody(req: IncomingMessage): Promise<any> {
+	return new Promise(() => {
+		let buffer = Buffer.alloc(0);
+		req.on("data", (chunk) => {
+			buffer = Buffer.concat([buffer, chunk]);
+		});
+		req.on("end", () => {
+			const body = buffer.toString();
+			const data = JSON.stringify(body);
+		});
 	});
 }

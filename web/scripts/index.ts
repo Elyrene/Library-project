@@ -5,6 +5,9 @@ import { customElement, state } from "lit/decorators.js";
 export class LoginComponent extends LitElement {
 	// 表单状态
 	@state()
+	private resultData = "";
+
+	@state()
 	private username = "";
 
 	@state()
@@ -58,6 +61,13 @@ export class LoginComponent extends LitElement {
       color: red;
       margin-top: 1rem;
     }
+    .result {
+      white-space: pre-wrap;
+      background-color: #f8f9fa;
+      padding: 1rem;
+      border-radius: 4px;
+      min-height: 100px;
+    }
   `;
 
 	// 提交表单（适配后端接口）
@@ -68,7 +78,7 @@ export class LoginComponent extends LitElement {
 
 		try {
 			// 后端接口 URL（根据实际情况调整，如 FastAPI 的 /token 或 Node.js 的 /api/token）
-			const response = await fetch("http://127.0.0.1:3000/api/token", {
+			const response = await fetch("http://127.0.0.1:3000/api/addUser", {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify({
@@ -77,20 +87,22 @@ export class LoginComponent extends LitElement {
 				}),
 			});
 
+			const data = await response.json();
+			this.resultData = data;
 			if (!response.ok) {
 				const data = await response.json();
-				throw new Error(data.detail || data.error || "登录失败");
+				throw new Error(data.detail || data.error || "操作失败");
 			}
 
-			const { access_token } = await response.json();
-			// 存储 Token（生产环境建议用 HttpOnly Cookie，避免 XSS 攻击）
-			localStorage.setItem("authToken", access_token);
+			// const { access_token } = await response.json();
+			// // 存储 Token（生产环境建议用 HttpOnly Cookie，避免 XSS 攻击）
+			// localStorage.setItem("authToken", access_token);
 
-			// 通知应用登录成功（可选：触发自定义事件）
-			this.dispatchEvent(new CustomEvent("login-success"));
+			// // 通知应用登录成功（可选：触发自定义事件）
+			// this.dispatchEvent(new CustomEvent("login-success"));
 
-			// 跳转页面（需配合路由库，如 lit-route）
-			window.location.href = "/Apitester";
+			// // 跳转页面（需配合路由库，如 lit-route）
+			// window.location.href = "/Apitester";
 		} catch (e) {
 			this.error = e instanceof Error ? e.message : "未知错误";
 		} finally {
@@ -101,7 +113,7 @@ export class LoginComponent extends LitElement {
 	render() {
 		return html`
       <div class="container">
-        <h2>登录</h2>
+        <h2>数据库测试</h2>
         <form @submit=${this.handleSubmit}>
           <div class="form-group">
             <label for="username">用户名</label>
@@ -128,6 +140,13 @@ export class LoginComponent extends LitElement {
           </button>
           ${this.error ? html`<div class="error">${this.error}</div>` : ""}
         </form>
+                <div class="result">
+          ${
+						this.resultData
+							? html`<pre>${JSON.stringify(this.resultData, null, 2)}</pre>`
+							: "暂无数据"
+					}
+        </div>
       </div>
     `;
 	}

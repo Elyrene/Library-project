@@ -3,8 +3,7 @@ import {
 	type IncomingMessage,
 	type ServerResponse,
 } from "node:http";
-
-import { handleGetData, handlePostData, logInPost } from "./api";
+import { addUser, handleGetData, handlePostData, logInPost } from "./api";
 
 // const jwt = require("jsonwebtoken");
 
@@ -41,6 +40,8 @@ const server = createServer((req: IncomingMessage, res: ServerResponse) => {
 		handlePostData(req, res);
 	} else if (urlPath === "/api/token" && method === "POST") {
 		logInPost(req, res);
+	} else if (urlPath === "/api/addUser" && method === "POST") {
+		addUser(req, res);
 	} else {
 		res.writeHead(400, { "Content-Type": "application/json" });
 		res.end(
