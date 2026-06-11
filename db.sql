@@ -10,3 +10,5 @@ CREATE TABLE IF NOT EXISTS user (
 );
 
 -- DROP TABLE IF EXISTS library_db.`user`;
+
+-- DROP DATABASE IF EXISTS library_db;
