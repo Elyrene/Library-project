@@ -1,11 +1,11 @@
 interface LoginData {
 	username: string;
-	passworld: string;
+	password: string;
 }
 
 const loginForm = document.getElementById("loginForm") as HTMLFormElement;
 const usernameInput = document.querySelector("#username") as HTMLInputElement;
-const passworldInput = document.querySelector("#passworld") as HTMLInputElement;
+const passwordInput = document.querySelector("#password") as HTMLInputElement;
 // const submitBtn = document.querySelector("button") as HTMLButtonElement;
 const outPutdiv = document.querySelector(".result") as HTMLDivElement;
 
@@ -14,7 +14,7 @@ loginForm.addEventListener("submit", async (e: Event): Promise<void> => {
 
 	const userdata: LoginData = {
 		username: usernameInput.value,
-		passworld: passworldInput.value,
+		password: passwordInput.value,
 	};
 
 	try {
@@ -23,7 +23,7 @@ loginForm.addEventListener("submit", async (e: Event): Promise<void> => {
 			headers: { "content-type": "application/json" },
 			body: JSON.stringify({
 				username: userdata.username,
-				passworld: userdata.passworld,
+				password: userdata.password,
 			}),
 		});
 

@@ -80,8 +80,8 @@ export function addUser(req: IncomingMessage, res: ServerResponse) {
 		try {
 			const body = buffer.toString();
 			const data = JSON.parse(body);
-			const { username, passworld } = data;
-			addAccount(username, passworld);
+			const { username, password } = data;
+			addAccount(username, password);
 			res.writeHead(200, { "content-type": "application/json" });
 			res.end(
 				JSON.stringify({

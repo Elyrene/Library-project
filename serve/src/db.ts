@@ -12,7 +12,7 @@ const pool = mysql.createPool({
 //创建一个用户
 export async function addAccount(username: string, password: string) {
 	await pool.query(`
-			INSERT INTO library_db.user (username, passworld)
+			INSERT INTO library_db.user (username, password)
 			VALUE ('${username}','${password}');
 		`);
 }
