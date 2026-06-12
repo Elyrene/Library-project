@@ -5,16 +5,6 @@ import {
 } from "node:http";
 import { addUser, handleGetData, handlePostData, logInPost } from "./api";
 
-// const jwt = require("jsonwebtoken");
-
-// const users = {
-// 	admin: {
-// 		passworld: "123456",
-// 	},
-// };
-
-// const SECRET_KEY = "11112222";
-
 // 测试 TS 类型推断
 const CONFIG = {
 	PORT: 3000,
@@ -42,6 +32,8 @@ const server = createServer((req: IncomingMessage, res: ServerResponse) => {
 		logInPost(req, res);
 	} else if (urlPath === "/api/addUser" && method === "POST") {
 		addUser(req, res);
+	} else if (urlPath === "/api/login" && method === "POST") {
+		logInPost(req, res);
 	} else {
 		res.writeHead(400, { "Content-Type": "application/json" });
 		res.end(

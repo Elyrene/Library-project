@@ -1,36 +1,31 @@
+import { login, sigup } from "./api";
+
 interface LoginData {
 	username: string;
 	password: string;
 }
 
-const loginForm = document.getElementById("loginForm") as HTMLFormElement;
+// const loginForm = document.getElementById("loginForm") as HTMLFormElement;
 const usernameInput = document.querySelector("#username") as HTMLInputElement;
 const passwordInput = document.querySelector("#password") as HTMLInputElement;
-// const submitBtn = document.querySelector("button") as HTMLButtonElement;
-const outPutdiv = document.querySelector(".result") as HTMLDivElement;
+const loginBtn = document.querySelector("#loginBtn") as HTMLButtonElement;
+const registerBtn = document.querySelector("#registerBtn") as HTMLButtonElement;
 
-loginForm.addEventListener("submit", async (e: Event): Promise<void> => {
-	e.preventDefault();
-
+registerBtn.addEventListener("click", async () => {
 	const userdata: LoginData = {
 		username: usernameInput.value,
 		password: passwordInput.value,
 	};
 
-	try {
-		const response = await fetch("http://127.0.0.1:3000/api/addUser", {
-			method: "POST",
-			headers: { "content-type": "application/json" },
-			body: JSON.stringify({
-				username: userdata.username,
-				password: userdata.password,
-			}),
-		});
+	sigup(userdata.username, userdata.password);
+	// window.location.href = "/Apitester";
+});
 
-		const data = await response.json();
-		outPutdiv.innerHTML = `${JSON.stringify(data)}`;
-	} catch (e) {
-		outPutdiv.innerHTML = `未知错误:${e}`;
-	}
-	window.location.href = "/Apitester";
+loginBtn.addEventListener("click", async () => {
+	const userdata: LoginData = {
+		username: usernameInput.value,
+		password: passwordInput.value,
+	};
+
+	login(userdata.username, userdata.password);
 });
